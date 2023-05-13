@@ -3,27 +3,48 @@ import { useState } from "react";
 import Axios from "axios";
 import { useRouter } from "next/navigation";
 
-function ProductForm() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+function ProductForm({
+  _id,
+  title: existingTitle,
+  description: existingDescription,
+  price: existingPrice,
+}) {
+  const [title, setTitle] = useState(existingTitle);
+  const [description, setDescription] = useState(existingDescription);
+  const [price, setPrice] = useState(existingPrice);
   const [goToProducts, setGoToProducts] = useState(false);
   const router = useRouter();
+  const data = { title, description, price };
 
   async function createProduct(e) {
     e.preventDefault();
-    const data = { title, description, price };
-    await Axios.post("/api/products", data);
+    if (_id) {
+      await Axios.put(
+        "/api/v1/product",
+        { ...data, _id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+    } else {
+      await Axios.post("/api/v1/product", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+    }
     setGoToProducts(true);
   }
 
   if (goToProducts) {
     router.push("/products");
   }
-
   return (
     <form onSubmit={createProduct} className="flex flex-col w-full">
-      <h1>New Product</h1>
       <label htmlFor="name">Product name</label>
       <input
         type="text"

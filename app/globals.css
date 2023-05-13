@@ -28,5 +28,5 @@ table.basic tr td {
 }
 
 table.basic a {
-  @apply bg-blue-400 text-white text-sm py-1 px-2 rounded-lg inline-flex gap-1;
+  @apply bg-blue-400 mr-1 text-white text-sm py-1 px-2 rounded-lg inline-flex gap-1;
 }

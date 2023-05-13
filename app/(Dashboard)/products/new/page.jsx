@@ -1,4 +1,9 @@
 import ProductForm from "@/app/components/ProductForm";
 export default function NewProduct() {
-  return <ProductForm />;
+  return (
+    <>
+      <h1>New Product</h1>
+      <ProductForm />
+    </>
+  );
 }

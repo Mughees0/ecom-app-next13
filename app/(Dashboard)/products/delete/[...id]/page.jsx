@@ -1,12 +1,13 @@
 "use client";
-import ProductForm from "@/app/components/ProductForm";
+import { useRouter, useParams } from "next/navigation";
+import { useEffect } from "react";
 import Axios from "axios";
-import { useParams } from "next/navigation";
-import { NextResponse } from "next/server";
-import { useEffect, useState } from "react";
 
-function EditProductPage() {
-  const [productInfo, setProductInfo] = useState(null);
+function DeleteProductPage() {
+  const router = useRouter();
+  function goBack() {
+    router.push("/products");
+  }
   const { id } = useParams();
 
   useEffect(() => {
@@ -26,10 +27,11 @@ function EditProductPage() {
 
   return (
     <>
-      <h1>Edit Product</h1>
-      {productInfo && <ProductForm {...productInfo} />}
+      <h1>Do you really want to delete product {id}</h1>
+      <button>YES</button>
+      <button onClick={goBack}>NO</button>
     </>
   );
 }
 
-export default EditProductPage;
+export default DeleteProductPage;
