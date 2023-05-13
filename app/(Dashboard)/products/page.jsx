@@ -1,16 +1,16 @@
 "use client";
-import { Axios } from "axios";
+import Axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
 
-  //   useEffect(() => {
-  //     Axios.get("/api/products").then((response) => {
-  //       setProducts(response.data);
-  //     });
-  //   }, []);
+  useEffect(() => {
+    Axios.get("/api/products").then((response) => {
+      setProducts(response.data);
+    });
+  }, []);
   console.log(products);
   return (
     <>

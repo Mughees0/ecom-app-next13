@@ -1,6 +1,7 @@
+"use client";
 import { useState } from "react";
 import Axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function ProductForm() {
   const [title, setTitle] = useState("");
