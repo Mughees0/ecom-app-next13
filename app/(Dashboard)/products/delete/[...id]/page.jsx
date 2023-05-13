@@ -1,9 +1,10 @@
 "use client";
 import { useRouter, useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Axios from "axios";
 
 function DeleteProductPage() {
+  const [productInfo, setProductInfo] = useState(null);
   const router = useRouter();
   function goBack() {
     router.push("/products");
@@ -25,11 +26,24 @@ function DeleteProductPage() {
     run();
   }, [id]);
 
+  async function deleteProduct() {
+    await Axios.delete("/api/v1/products/" + id);
+    goBack();
+  }
+
   return (
     <>
-      <h1>Do you really want to delete product {id}</h1>
-      <button>YES</button>
-      <button onClick={goBack}>NO</button>
+      <h1 className=" text-center">
+        Do you really want to delete product &nbsp;"{productInfo?.title}"?
+      </h1>
+      <article className="flex gap-2 justify-center ">
+        <button onClick={deleteProduct} className=" btn-red">
+          YES
+        </button>
+        <button className=" btn-default" onClick={goBack}>
+          NO
+        </button>
+      </article>
     </>
   );
 }

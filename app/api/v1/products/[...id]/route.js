@@ -5,8 +5,14 @@ import mongooseConnect from "@/lib/mongoose";
 export async function GET(request, { params }) {
   await mongooseConnect();
   const { id } = params;
-
   return NextResponse.json(await Product.findById(id));
+}
+
+export async function DELETE(request, { params }) {
+  await mongooseConnect();
+  const { id } = params;
+  await Product.deleteOne({ _id: id });
+  return NextResponse.json(true);
 }
 
 // export async function POST(request) {
